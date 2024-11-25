@@ -41,7 +41,7 @@ context("GET /orders", () => {
             
         })
     })
-    context("should adds a product in the cart successfully", () => {
+    context("should add a product in the cart successfully", () => {
         const randomQuantity = faker.number.int({ min : 1, max: 10 })
         let productId; 
         let cartId;

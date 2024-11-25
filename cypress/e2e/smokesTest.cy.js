@@ -10,3 +10,39 @@ describe('Login Page', () => {
         cy.getBySel('login-submit').should('have.text', "Se connecter").and('be.visible');
     })
 })
+
+describe('Cart for connected user', () => {
+    before(() => {
+        // Simuler la connexion via une requête API
+        cy.request({
+            method:"POST", 
+            url: apiUrl + "/login", 
+            failOnStatusCode: false,
+            body: {
+                "username" : username,
+                "password" : password,
+               }
+           
+        }).then((response) => {
+                Cypress.env('authToken', response.body.token); 
+            });
+        cy.visit('/'); 
+    });
+
+    it('should find an add to cart button on product page', () => {
+        // Vérifier que les boutons d’ajout au panier sont visibles
+        cy.contains("Voir les produits").click()
+        cy.getBySel('product-link').first().click()
+        cy.getBySel('detail-product-add').click()
+
+        
+    });
+});
+
+describe('Availability field', () => {
+    it('should exist on product page', () => {
+        cy.visit('/')
+        cy.getBySel('product-home-link').first().click()
+        cy.getBySel('detail-product-stock').should('exist').and('be.visible')
+    })
+})
