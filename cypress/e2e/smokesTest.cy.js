@@ -42,7 +42,8 @@ describe('Cart for connected user', () => {
 describe('Availability field', () => {
     it('should exist on product page', () => {
         cy.visit('/')
-        cy.getBySel('product-home-link').first().click()
+        cy.getBySel('nav-link-products').click()
+        cy.getBySel('product-link').first().click()
         cy.getBySel('detail-product-stock').should('exist').and('be.visible')
     })
 })

@@ -71,8 +71,7 @@ context("GET /orders", () => {
                 }
             }).then((response) => {
                 expect(response.status).to.eq(200)
-                //cartId = response.body.orderLines[0].id
-                //cy.log(cartId)
+
             })
             
             
@@ -227,6 +226,18 @@ describe('Reviews API', () => {
         })
     })
     it('should not adds a review with script', () => {
+        before(() => {
+        cy.request({
+            method: "POST",
+            url: apiUrl +  "/login",
+            body: {
+             "username" : username,
+             "password" : password,
+            }
+        }).then((response) => {
+            Cypress.env('authToken', response.body.token); // Stocke le token dans les variables d’environnement de Cypress
+        });
+    });
         cy.request({
             method: 'POST',
             url: apiUrl + "/reviews", 
