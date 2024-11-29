@@ -44,7 +44,6 @@ context("GET /orders", () => {
     context("should add a product in the cart successfully", () => {
         const randomQuantity = faker.number.int({ min : 1, max: 10 })
         let productId; 
-        let cartId;
         it('should returns a random product', () => {
             cy.request({
                 method: 'GET',
@@ -226,18 +225,7 @@ describe('Reviews API', () => {
         })
     })
     it('should not adds a review with script', () => {
-        before(() => {
-        cy.request({
-            method: "POST",
-            url: apiUrl +  "/login",
-            body: {
-             "username" : username,
-             "password" : password,
-            }
-        }).then((response) => {
-            Cypress.env('authToken', response.body.token); // Stocke le token dans les variables d’environnement de Cypress
-        });
-    });
+        
         cy.request({
             method: 'POST',
             url: apiUrl + "/reviews", 

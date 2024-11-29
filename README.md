@@ -1,6 +1,6 @@
-#**EcoBishBath**
+#**EcoBlissBath**
 
-EcoBlishBath est une startup de 20 personnes spécialisée dans la vente de produits de beautés éco-responsable dont le produit principal est un savon solide.
+EcoBlissBath est une startup de 20 personnes spécialisée dans la vente de produits de beautés éco-responsable dont le produit principal est un savon solide.
 
 #**Prérequis**
 

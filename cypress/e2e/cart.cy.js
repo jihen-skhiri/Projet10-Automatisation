@@ -52,8 +52,9 @@ describe('Cart tests', () => {
             cy.getBySel('detail-product-add').click()
             cy.getBySel('detail-product-form').should('have.class', 'ng-invalid')
           })
-          it('should adds a product to the cart and shows up in the API', () => {
-            let id;
+          
+
+          describe('Verify Cart with API', () => {
             before(() => {
                 cy.request({
                     method: "POST",
@@ -66,6 +67,9 @@ describe('Cart tests', () => {
                     Cypress.env('authToken', response.body.token); // Stocke le token dans les variables d’environnement de Cypress
                 });
             });
+          it('should adds a product to the cart and shows up in the API', () => {
+            let id;
+           
             cy.getBySel('product-home-link').first().click()
             
             cy.url().then(url => {
@@ -77,24 +81,27 @@ describe('Cart tests', () => {
       
               cy.contains('[data-cy="detail-product-add"]', 'Ajouter au panier').click();
           
-          
-                cy.request({
-                  method: 'GET',
-                  url: apiUrl + '/orders',
-                  headers: {
-                    headers: {
-                        "Authorization" : `Bearer ${Cypress.env('authToken')}`
-                    }
-                  },
+              cy.request({
+                method: 'GET',
+                url:  apiUrl + '/orders',
+                headers: {
+                    "Authorization": `Bearer ${Cypress.env('authToken')}`
+                }
                 }).then((response) => {
-                  cy.log(response.body.orderLines[0].product.id);
-                  const idInApi = response.body.orderLines[0].product.id
-                  expect(idInApi).to.equal(id);
+                    expect(response.status).to.equal(200);
+                    
+                        // Logique pour vérifier les produits dans le panier
+                        const addedProduct = response.body.orderLines.find(line => line.product.id === id);
+                        expect(addedProduct).to.exist;
+                        cy.log(addedProduct)
+                    
                 });
-             
+              
             })
-            cy.visit('/cart')
-            cy.getBySel('cart-line-delete').click({ multiple : true })
+             // Nettoyez le panier
+            //cy.visit('#/cart')
+            //cy.getBySel('cart-line-delete').should('exist').and('be.visible').click({ multiple : true, force: true })
+           
           });
-
+        });
 })
