@@ -93,7 +93,6 @@ describe('Cart tests', () => {
                         // Logique pour vérifier les produits dans le panier
                         const addedProduct = response.body.orderLines.find(line => line.product.id === id);
                         expect(addedProduct).to.exist;
-                        cy.log(addedProduct)
                     
                 });
               

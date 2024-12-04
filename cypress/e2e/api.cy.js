@@ -224,7 +224,7 @@ describe('Reviews API', () => {
             expect(response.status).to.be.eq(200)
         })
     })
-    it('should not adds a review with script', () => {
+    it('should not adds a review with script XSS', () => {
         
         cy.request({
             method: 'POST',
